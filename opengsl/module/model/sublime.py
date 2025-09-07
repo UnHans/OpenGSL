@@ -12,8 +12,7 @@ EOS = 1e-10
 
 def get_feat_mask(features, mask_rate):
     feat_node = features.shape[1]
-    mask = torch.zeros(features.shape)
-    # samples = np.random.choice(feat_node, size=int(feat_node * mask_rate), replace=False)
+    mask = torch.zeros(features.shape,device = "cuda")
     samples = torch.randperm(feat_node, device="cuda")[:int(feat_node * mask_rate)]
     mask[:, samples] = 1
     return mask.cuda(), samples
